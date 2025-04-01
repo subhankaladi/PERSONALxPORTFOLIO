@@ -1,7 +1,7 @@
 "use client"
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FaFacebookF, FaInstagram, FaLinkedinIn,FaGithub, FaTwitter, FaYoutube, FaTelegram } from 'react-icons/fa';
+import { FaFacebookF, FaInstagram, FaLinkedinIn,FaGithub, FaTwitter, FaYoutube } from 'react-icons/fa';
 import { MdEmail } from 'react-icons/md';
 // import { ContactMessage } from '@/types';
 
