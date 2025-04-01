@@ -1,7 +1,6 @@
 "use client"
 import React, { useEffect, useRef } from 'react';
 import { motion, useAnimation, useInView, useScroll, useTransform } from 'framer-motion';
-import Link from 'next/link';
 
 const HeroSection = () => {
   const ref = useRef(null);
