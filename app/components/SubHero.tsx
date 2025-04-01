@@ -1,7 +1,6 @@
 "use client"
 import React, { useRef } from 'react';
 import { motion, useAnimation, useInView, useScroll, useTransform } from 'framer-motion';
-import Link from 'next/link';
 
 const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
   e.preventDefault();
