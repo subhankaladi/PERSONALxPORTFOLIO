@@ -1,7 +1,6 @@
 "use client"
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { IoMdChatboxes } from 'react-icons/io';
 import { IoClose } from 'react-icons/io5';
 import { BsThreeDots, BsArrowUpShort } from 'react-icons/bs';
 
