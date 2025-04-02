@@ -26,8 +26,8 @@ const Project = () => {
       description: "A modern blog platform built with Next.js and TypeScript, featuring a clean UI and smooth animations.",
       image: "/blogsite.png",
       technologies: ["Next.js", "TypeScript", "Tailwind CSS"],
-      githubLink: "https://github.com/yourusername/blogsite",
-      liveLink: "https://blogsite-demo.vercel.app",
+      githubLink: "https://github.com/subhankaladi/blogsite-with-sanity/tree/main/next-sanity-blog",
+      liveLink: "https://blogsite-with-sanity.vercel.app/",
       type: "project",
       icon: FaCode
     },
@@ -36,8 +36,8 @@ const Project = () => {
       description: "Full-stack e-commerce platform with modern UI, shopping cart, and payment integration.",
       image: "/nikejordee.png",
       technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Sanity"],
-      githubLink: "https://github.com/yourusername/nikejordee",
-      liveLink: "https://nikeejordee.vercel.app",
+      githubLink: "https://github.com/subhankaladi/Giaic-Hackathon-3/tree/main/day-7-complete/NikeJordee",
+      liveLink: "https://nikeejordee.vercel.app/",
       type: "project",
       icon: FaServer
     },
@@ -46,8 +46,8 @@ const Project = () => {
       description: "Interactive Python quiz application with real-time scoring and progress tracking.",
       image: "/pyquiz.png",
       technologies: ["Python", "Next.js", "TypeScript"],
-      githubLink: "https://github.com/yourusername/pyquiz",
-      liveLink: "https://pyquizmaster.vercel.app",
+      githubLink: "https://github.com/subhankaladi",
+      liveLink: "https://pyquizmaster.vercel.app/",
       type: "project",
       icon: FaDatabase
     },
@@ -56,7 +56,7 @@ const Project = () => {
       description: "Next.js and TypeScript projects from GIAIC Quarter 2, showcasing advanced web development skills.",
       image: "/giaic-q2.png",
       technologies: ["Next.js", "TypeScript", "Tailwind CSS"],
-      githubLink: "https://github.com/yourusername/GIAIC-Q2",
+      githubLink: "https://github.com/subhankaladi/GIAIC-Q2",
       type: "repository",
       icon: SiNextdotjs
     },
@@ -65,7 +65,7 @@ const Project = () => {
       description: "Complete source code for the NikeJordee e-commerce platform with detailed documentation.",
       image: "/nikejordee-repo.png",
       technologies: ["Next.js", "TypeScript", "Sanity"],
-      githubLink: "https://github.com/yourusername/nikejordee",
+      githubLink: "https://github.com/subhankaladi/Giaic-Hackathon-3/tree/main/day-7-complete/NikeJordee",
       type: "repository",
       icon: SiTypescript
     },
@@ -74,7 +74,7 @@ const Project = () => {
       description: "Python and Agentic AI projects from GIAIC Quarter 3, demonstrating AI development expertise.",
       image: "/giaic-q3.png",
       technologies: ["Python", "AI", "LangChain"],
-      githubLink: "https://github.com/yourusername/GIAIC-Q3PythonxAgenticAI",
+      githubLink: "https://github.com/subhankaladi/GIAIC-Q3_Python-AgenticAI",
       type: "repository",
       icon: SiPython
     }
