@@ -9,6 +9,7 @@ import Chatbot from "./components/chatbot";
 export default function Home() {
   return (
     <div className="relative">
+      {/* Animated Timeline Line */}
       <div className="fixed left-8 top-0 h-full w-[2px] pointer-events-none z-40 hidden md:block">
         <div className="h-full w-full bg-white/10" />
         <div 
@@ -30,6 +31,7 @@ export default function Home() {
         </div>
       </div>
 
+      {/* Content */}
       <div className="relative">
         <HeroSection/>
         <SubHero/>
@@ -40,6 +42,7 @@ export default function Home() {
         <Project/>
       </div>
 
+      {/* Script for scroll animation */}
       <script dangerouslySetInnerHTML={{
         __html: `
           document.addEventListener('scroll', function() {

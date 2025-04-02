@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaFacebookF, FaInstagram, FaLinkedinIn,FaGithub, FaTwitter, FaYoutube } from 'react-icons/fa';
 import { MdEmail } from 'react-icons/md';
-// import { ContactMessage } from '@/types';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
