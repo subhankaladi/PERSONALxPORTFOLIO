@@ -88,9 +88,9 @@ const Chatbot = () => {
         isBot: true,
         timestamp: new Date(),
       }]);
-    } catch (error) {
+    } catch (_error) {
       setMessages(prev => [...prev, {
-        text: "I'm having trouble connecting. Please ask about my services or experience instead.",
+        text: "I&apos;m having trouble connecting. Please ask about my services or experience instead.",
         isBot: true,
         timestamp: new Date(),
       }]);
@@ -120,7 +120,7 @@ const Chatbot = () => {
                 <BsArrowUpShort size={18} className="text-white opacity-80" />
               </div>
               <div className="opacity-0 group-hover:opacity-100 absolute inset-0 flex items-center justify-center bg-gradient-to-r from-cyan-600 to-blue-700 rounded-full transition-opacity duration-300">
-                <span className="text-white font-medium text-xs px-2 text-center leading-tight">Try<br/>Subhan's Assistant</span>
+                <span className="text-white font-medium text-xs px-2 text-center leading-tight">Try<br/>Subhan&apos;s Assistant</span>
               </div>
             </>
           )}
@@ -138,7 +138,7 @@ const Chatbot = () => {
           >
             {/* Header */}
             <div className="bg-gradient-to-r from-cyan-500 to-blue-600 p-4 text-white">
-              <h3 className="font-bold">Chat with Subhan's Assistant</h3>
+              <h3 className="font-bold">Chat with Subhan&apos;s Assistant</h3>
               <p className="text-sm opacity-90">Ask about my services and experience!</p>
             </div>
 
