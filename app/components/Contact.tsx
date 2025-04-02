@@ -114,7 +114,7 @@ const Contact = () => {
           className="text-4xl md:text-5xl lg:text-6xl font-bold text-center mb-8"
         >
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
-            Let's Connect
+            Let&apos;s Connect
           </span>
         </motion.h2>
 

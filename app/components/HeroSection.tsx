@@ -106,7 +106,7 @@ const HeroSection = () => {
           className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-4 md:mb-6"
           variants={itemVariants}
         >
-          Hi, I'm <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600">Subhan Kaladi</span>
+          Hi, I&apos;m <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600">Subhan Kaladi</span>
         </motion.h1>
         <motion.p 
           className="text-lg md:text-xl lg:text-2xl text-gray-300 mb-6 md:mb-8 max-w-2xl mx-auto"
