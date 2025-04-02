@@ -25,10 +25,10 @@ export async function POST(req: Request) {
       response: response.text(),
     });
 
-  } catch (error: any) {
+  } catch (error: Error | unknown) {
     console.error('Chat API Error:', error);
     return NextResponse.json(
-      { error: 'Failed to get response from AI', details: error.message },
+      { error: 'Failed to get response from AI', details: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }
     );
   }

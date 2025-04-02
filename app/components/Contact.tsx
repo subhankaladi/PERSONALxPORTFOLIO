@@ -145,7 +145,7 @@ const Contact = () => {
 
         {/* Social Links Grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
-          {socialLinks.map((social, index) => (
+          {socialLinks.map((social) => (
             <motion.a
               key={social.name}
               href={social.link}

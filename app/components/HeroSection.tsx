@@ -13,7 +13,7 @@ const HeroSection = () => {
     if (isInView) {
       mainControls.start("visible");
     }
-  }, [isInView]);
+  }, [isInView, mainControls]);
 
   const containerVariants = {
     hidden: { opacity: 0 },

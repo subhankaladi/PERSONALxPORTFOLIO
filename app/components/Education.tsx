@@ -151,7 +151,7 @@ const Education = () => {
         </motion.h2>
 
         <div className="max-w-4xl mx-auto space-y-12">
-          {educationData.map((edu, index) => (
+          {educationData.map((edu) => (
             <motion.div
               key={edu.title}
               variants={itemVariants}
@@ -170,7 +170,7 @@ const Education = () => {
 
               {edu.courses && (
                 <div className="grid md:grid-cols-2 gap-4 mt-6">
-                  {edu.courses.map((course, courseIndex) => (
+                  {edu.courses.map((course) => (
                     <motion.div
                       key={course.quarter}
                       variants={itemVariants}
@@ -215,7 +215,7 @@ const Education = () => {
               "Next.js",
               "TypeScript",
               "Python Programming"
-            ].map((course, index) => (
+            ].map((course) => (
               <motion.span
                 key={course}
                 variants={itemVariants}
