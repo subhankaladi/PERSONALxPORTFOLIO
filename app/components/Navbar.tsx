@@ -19,19 +19,21 @@ const Navbar = () => {
 
   const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
     e.preventDefault();
-    const target = document.getElementById(targetId);
-    if (target) {
-      const offset = 80; // Adjust this value based on your navbar height
-      const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
-      
-      window.scrollTo({
-        top: targetPosition,
-        behavior: 'smooth'
-      });
-
-      // Close mobile menu if open
-      setIsOpen(false);
-    }
+    setIsOpen(false); // Close menu immediately
+    
+    // Small delay to allow menu to close before scrolling
+    setTimeout(() => {
+      const target = document.getElementById(targetId);
+      if (target) {
+        const offset = 80; // Adjust this value based on your navbar height
+        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+        
+        window.scrollTo({
+          top: targetPosition,
+          behavior: 'smooth'
+        });
+      }
+    }, 300); // Match this delay with your mobile menu closing animation duration
   };
 
   const navItems = [
@@ -182,7 +184,22 @@ const Navbar = () => {
             >
               <a
                 href={item.href}
-                onClick={(e) => handleScroll(e, item.href.substring(1))}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setIsOpen(false);
+                  // Wait for menu to close before scrolling
+                  setTimeout(() => {
+                    const target = document.getElementById(item.href.substring(1));
+                    if (target) {
+                      const offset = 80;
+                      const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                      window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                      });
+                    }
+                  }, 300);
+                }}
                 className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
               >
                 {item.name}
