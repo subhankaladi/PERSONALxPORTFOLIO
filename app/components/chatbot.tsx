@@ -88,7 +88,7 @@ const Chatbot = () => {
         isBot: true,
         timestamp: new Date(),
       }]);
-    } catch (_error) {
+    } catch {
       setMessages(prev => [...prev, {
         text: "I&apos;m having trouble connecting. Please ask about my services or experience instead.",
         isBot: true,
