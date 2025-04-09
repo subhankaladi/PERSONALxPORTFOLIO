@@ -1,10 +1,12 @@
 "use client"
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { FaFacebookF, FaInstagram, FaLinkedinIn,FaGithub, FaTwitter, FaYoutube } from 'react-icons/fa';
-import { MdEmail } from 'react-icons/md';
+import React, { useRef, useState } from 'react';
+import { motion, useAnimation, useInView } from 'framer-motion';
+import { FiMail, FiSend, FiUser, FiMessageSquare } from 'react-icons/fi';
 
 const Contact = () => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, amount: 0.3 });
+  const controls = useAnimation();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -12,6 +14,34 @@ const Contact = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+  React.useEffect(() => {
+    if (isInView) {
+      controls.start("visible");
+    }
+  }, [isInView, controls]);
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        type: "spring",
+        stiffness: 50
+      }
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,224 +54,142 @@ const Contact = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          ...formData,
-          _type: 'contactMessage',
-          createdAt: new Date().toISOString(),
-        }),
+        body: JSON.stringify(formData),
       });
 
-      if (!response.ok) throw new Error('Failed to submit');
-
-      setSubmitStatus('success');
-      setFormData({ name: '', email: '', message: '' });
+      if (response.ok) {
+        setSubmitStatus('success');
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        setSubmitStatus('error');
+      }
     } catch (error) {
-      console.error('Error submitting form:', error);
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
-
-  const socialLinks = [
-    { name: 'Facebook', icon: FaFacebookF, link: 'https://www.facebook.com/subhanallahkaladi', color: 'hover:bg-blue-600' },
-    { name: 'Instagram', icon: FaInstagram, link: 'https://instagram.com/subhan_kaladi', color: 'hover:bg-pink-600' },
-    { name: 'Github', icon: FaGithub, link: "https://github.com/subhankaladi", color: 'hover:bg-gray-600' },
-    { name: 'LinkedIn', icon: FaLinkedinIn, link: 'https://www.linkedin.com/in/subhan-kaladi-6242bb31b/', color: 'hover:bg-blue-500' },
-    { name: 'Twitter', icon: FaTwitter, link: 'https://x.com/subhankaladi15', color: 'hover:bg-blue-400' },
-    { name: 'YouTube', icon: FaYoutube, link: 'https://www.youtube.com/@subhankaladi', color: 'hover:bg-red-600' },
-    // { name: 'Telegram', icon: FaTelegram, link: 'https://t.me/', color: 'hover:bg-blue-500' },
-  ];
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.3
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 100
-      }
-    }
-  };
-
   return (
-    <section 
-      id="contact" 
-      className="min-h-screen bg-black py-20 relative overflow-hidden"
+    <motion.section
+      ref={ref}
+      className="relative min-h-screen w-full bg-black flex flex-col items-center justify-center py-20 overflow-hidden"
+      initial="hidden"
+      animate={controls}
+      variants={containerVariants}
     >
-      {/* Animated Background */}
-      <motion.div 
-        className="absolute inset-0 opacity-20"
-        animate={{
-          backgroundPosition: ["0% 0%", "100% 100%"],
-        }}
-        transition={{
-          duration: 20,
-          repeat: Infinity,
-          repeatType: "reverse",
-        }}
-        style={{
-          backgroundImage: "radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1) 1px, transparent 1px)",
-          backgroundSize: "30px 30px",
-        }}
-      />
+      {/* Animated background pattern */}
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-[size:24px_24px]" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black" />
+      </div>
 
-      <motion.div
-        initial="hidden"
-        animate="visible"
-        variants={containerVariants}
-        className="container mx-auto px-4 relative z-10"
-      >
-        <motion.h2 
+      {/* Floating particles */}
+      <div className="absolute inset-0 overflow-hidden">
+        {[...Array(20)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-1 h-1 bg-white/20 rounded-full"
+            style={{
+              top: `${Math.random() * 100}%`,
+              left: `${Math.random() * 100}%`,
+              animation: `float ${5 + Math.random() * 5}s linear infinite`
+            }}
+          />
+        ))}
+      </div>
+
+      <div className="relative z-10 container mx-auto px-4">
+        <motion.h2
           variants={itemVariants}
-          className="text-4xl md:text-5xl lg:text-6xl font-bold text-center mb-8"
+          className="text-4xl md:text-5xl lg:text-6xl font-bold text-center mb-16"
         >
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
-            Let&apos;s Connect
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400">
+            Get in Touch
           </span>
         </motion.h2>
 
-        <motion.p
-          variants={itemVariants}
-          className="text-gray-300 text-center max-w-2xl mx-auto mb-12 text-lg"
-        >
-          Feel free to reach out for collaborations, opportunities, or just to say hello!
-        </motion.p>
-
-        {/* Email Section */}
         <motion.div
           variants={itemVariants}
-          whileHover={{ scale: 1.02 }}
-          className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 mb-12 max-w-xl mx-auto
-                     border border-white/10 hover:border-purple-500/30 transition-all"
+          className="max-w-2xl mx-auto bg-white/5 backdrop-blur-sm rounded-2xl p-8 shadow-2xl"
         >
-          <div className="flex items-center justify-center gap-4">
-            <MdEmail className="text-3xl text-purple-400" />
-            <a 
-              href="mailto:subhankaladi@gmail.com"
-              className="text-white text-lg hover:text-purple-400 transition-colors"
-            >
-              subhankaladi@gmail.com
-            </a>
-          </div>
-        </motion.div>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="space-y-4">
+              <div className="relative">
+                <FiUser className="absolute left-4 top-1/2 -translate-y-1/2 text-white/50" />
+                <input
+                  type="text"
+                  placeholder="Your Name"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  className="w-full bg-white/5 border border-white/10 rounded-lg py-3 pl-12 pr-4 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
+                  required
+                />
+              </div>
 
-        {/* Social Links Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
-          {socialLinks.map((social) => (
-            <motion.a
-              key={social.name}
-              href={social.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              variants={itemVariants}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className={`flex items-center justify-center gap-3 p-4 rounded-xl
-                         bg-white/5 backdrop-blur-sm border border-white/10
-                         hover:border-purple-500/30 transition-all ${social.color}`}
-            >
-              <social.icon className="text-2xl" />
-              <span className="text-white font-medium">{social.name}</span>
-            </motion.a>
-          ))}
-        </div>
+              <div className="relative">
+                <FiMail className="absolute left-4 top-1/2 -translate-y-1/2 text-white/50" />
+                <input
+                  type="email"
+                  placeholder="Your Email"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  className="w-full bg-white/5 border border-white/10 rounded-lg py-3 pl-12 pr-4 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
+                  required
+                />
+              </div>
 
-        {/* Updated Contact Form */}
-        <motion.form
-          variants={itemVariants}
-          onSubmit={handleSubmit}
-          className="mt-16 max-w-xl mx-auto"
-        >
-          <div className="space-y-6">
-            <motion.div variants={itemVariants}>
-              <input
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                placeholder="Your Name"
-                className="w-full p-3 rounded-lg bg-white/5 border border-white/10 
-                         focus:border-purple-500/50 outline-none text-white"
-                required
-              />
-            </motion.div>
-            <motion.div variants={itemVariants}>
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="Your Email"
-                className="w-full p-3 rounded-lg bg-white/5 border border-white/10 
-                         focus:border-purple-500/50 outline-none text-white"
-                required
-              />
-            </motion.div>
-            <motion.div variants={itemVariants}>
-              <textarea
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                rows={4}
-                placeholder="Your Message"
-                className="w-full p-3 rounded-lg bg-white/5 border border-white/10 
-                         focus:border-purple-500/50 outline-none text-white resize-none"
-                required
-              />
-            </motion.div>
+              <div className="relative">
+                <FiMessageSquare className="absolute left-4 top-4 text-white/50" />
+                <textarea
+                  placeholder="Your Message"
+                  value={formData.message}
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  className="w-full bg-white/5 border border-white/10 rounded-lg py-3 pl-12 pr-4 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 min-h-[150px]"
+                  required
+                />
+              </div>
+            </div>
+
             <motion.button
-              variants={itemVariants}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
+              className="w-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-white font-medium py-3 px-6 rounded-lg flex items-center justify-center gap-2 hover:opacity-90 transition-opacity duration-300 disabled:opacity-50"
               disabled={isSubmitting}
-              className={`w-full py-3 px-6 rounded-lg bg-gradient-to-r from-blue-500 to-purple-600
-                       text-white font-medium hover:shadow-lg hover:shadow-purple-500/20 
-                       transition-all ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
             >
-              {isSubmitting ? 'Sending...' : 'Send Message'}
+              {isSubmitting ? (
+                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+              ) : (
+                <>
+                  <FiSend />
+                  Send Message
+                </>
+              )}
             </motion.button>
 
             {submitStatus === 'success' && (
               <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="text-green-500 text-center mt-4"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-green-400 text-center"
               >
-                Message sent successfully!
+                Message sent successfully! I'll get back to you soon.
               </motion.p>
             )}
 
             {submitStatus === 'error' && (
               <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="text-red-500 text-center mt-4"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-red-400 text-center"
               >
-                Failed to send message. Please try again.
+                Something went wrong. Please try again later.
               </motion.p>
             )}
-          </div>
-        </motion.form>
-      </motion.div>
-    </section>
+          </form>
+        </motion.div>
+      </div>
+    </motion.section>
   );
 };
 
