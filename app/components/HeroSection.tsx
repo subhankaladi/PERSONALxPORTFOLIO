@@ -1,13 +1,11 @@
 "use client"
 import React, { useEffect, useRef } from 'react';
-import { motion, useAnimation, useInView, useScroll, useTransform } from 'framer-motion';
+import { motion, useAnimation, useInView } from 'framer-motion';
 
 const HeroSection = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: false });
+  const isInView = useInView(ref, { once: true });
   const mainControls = useAnimation();
-  const { scrollYProgress } = useScroll();
-  const y = useTransform(scrollYProgress, [0, 0.2], [0, -100]);
 
   useEffect(() => {
     if (isInView) {
@@ -20,8 +18,8 @@ const HeroSection = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3
+        duration: 0.5,
+        staggerChildren: 0.1
       }
     }
   };
@@ -33,8 +31,7 @@ const HeroSection = () => {
       opacity: 1,
       transition: {
         type: "spring",
-        stiffness: 100,
-        damping: 10
+        stiffness: 50
       }
     }
   };
@@ -57,56 +54,27 @@ const HeroSection = () => {
     <motion.section 
       id="home"
       ref={ref}
-      className="relative h-[100vh] w-full flex flex-col items-center justify-center overflow-hidden pb-0 mb-[-10vh]"
-      style={{ y }}
+      className="relative min-h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-black"
       initial="hidden"
       animate={mainControls}
       variants={containerVariants}
     >
-      <motion.div 
-        className="absolute top-0 left-0 w-full h-full opacity-20"
-        animate={{
-          scale: [1, 1.2, 1],
-          rotate: [0, 5, 0],
-        }}
-        transition={{
-          duration: 20,
-          repeat: Infinity,
-          repeatType: "reverse",
-        }}
-      >
-        <div className="w-full h-full bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-50" />
-      </motion.div>
-      <motion.div 
-        className="absolute top-20 left-20 w-40 h-40 rounded-full bg-gradient-to-r from-pink-500 to-violet-600 blur-xl opacity-30"
-        animate={{
-          y: [0, 40, 0],
-          x: [0, 20, 0],
-        }}
-        transition={{
-          duration: 15,
-          repeat: Infinity,
-          repeatType: "reverse",
-        }}
-      />
-      <motion.div 
-        className="absolute bottom-20 right-20 w-60 h-60 rounded-full bg-gradient-to-r from-cyan-400 to-blue-600 blur-xl opacity-30"
-        animate={{
-          y: [0, -30, 0],
-          x: [0, -20, 0],
-        }}
-        transition={{
-          duration: 12,
-          repeat: Infinity,
-          repeatType: "reverse",
-        }}
-      />
+      {/* Modern grid background */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px]" />
+      
+      {/* Gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-tr from-black via-black/90 to-black/70" />
+
+      {/* Glowing orbs */}
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/30 rounded-full mix-blend-screen filter blur-[128px] animate-pulse" />
+      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/30 rounded-full mix-blend-screen filter blur-[128px] animate-pulse" />
+
       <div className="z-10 text-center px-4">
         <motion.h1 
           className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-4 md:mb-6"
           variants={itemVariants}
         >
-          Hi, I&apos;m <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600">Subhan Kaladi</span>
+          Hi, I&apos;m <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400">Subhan Kaladi</span>
         </motion.h1>
         <motion.p 
           className="text-lg md:text-xl lg:text-2xl text-gray-300 mb-6 md:mb-8 max-w-2xl mx-auto"
@@ -144,6 +112,7 @@ const HeroSection = () => {
   );
 };
 
+// Optimized TypewriterEffect
 const TypewriterEffect = ({ strings }: { strings: string[] }) => {
   const [currentStringIndex, setCurrentStringIndex] = React.useState(0);
   const [currentText, setCurrentText] = React.useState('');
@@ -163,7 +132,7 @@ const TypewriterEffect = ({ strings }: { strings: string[] }) => {
         setIsDeleting(false);
         setCurrentStringIndex((currentStringIndex + 1) % strings.length);
       }
-    }, isDeleting ? 50 : 100);
+    }, isDeleting ? 100 : 150); // Slowed down typing speed
     return () => clearTimeout(timeout);
   }, [currentText, isDeleting, currentStringIndex, strings]);
   
