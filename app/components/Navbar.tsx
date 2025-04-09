@@ -36,6 +36,9 @@ const Navbar = () => {
     }, 300); // Match this delay with your mobile menu closing animation duration
   };
 
+
+  
+
   const navItems = [
     { name: 'Home', href: '#home', icon: AiOutlineHome },
     { name: 'Skills', href: '#skills', icon: AiFillSketchCircle },
