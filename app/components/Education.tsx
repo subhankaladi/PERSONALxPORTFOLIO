@@ -1,6 +1,6 @@
 "use client"
 import React, { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { motion, useAnimation, useInView } from 'framer-motion';
 import { FaGraduationCap, FaCode, FaPython, FaRobot } from 'react-icons/fa';
 import { SiTypescript, SiNextdotjs } from 'react-icons/si';
 import { IconType } from 'react-icons';
@@ -24,7 +24,36 @@ interface EducationItem {
 
 const Education = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: false, amount: 0.2 });
+  const isInView = useInView(ref, { once: true, amount: 0.3 });
+  const controls = useAnimation();
+
+  React.useEffect(() => {
+    if (isInView) {
+      controls.start("visible");
+    }
+  }, [isInView, controls]);
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { x: -50, opacity: 0 },
+    visible: {
+      x: 0,
+      opacity: 1,
+      transition: {
+        type: "spring",
+        stiffness: 50
+      }
+    }
+  };
 
   const educationData: EducationItem[] = [
     {
@@ -65,7 +94,7 @@ const Education = () => {
     },
     {
       title: "PIAIC - Artificial Intelligence Program",
-      period: "2023 - Present",
+      period: "2024 - Present",
       icon: FaRobot,
       courses: [
         {
@@ -94,141 +123,95 @@ const Education = () => {
     }
   ];
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { y: 50, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        type: "spring",
-        bounce: 0.4
-      }
-    }
-  };
-
   return (
-    <section ref={ref} className="min-h-screen bg-black py-20 relative overflow-hidden">
-      {/* Animated Background */}
-      <motion.div 
-        className="absolute inset-0 opacity-10"
-        animate={{
-          backgroundPosition: ["0% 0%", "100% 100%"],
-        }}
-        transition={{
-          duration: 20,
-          repeat: Infinity,
-          repeatType: "reverse",
-        }}
-        style={{
-          backgroundImage: "radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1) 1px, transparent 1px)",
-          backgroundSize: "30px 30px",
-        }}
-      />
+    <motion.section
+      ref={ref}
+      className="relative min-h-screen w-full bg-black flex flex-col items-center justify-center py-20 overflow-hidden"
+      initial="hidden"
+      animate={controls}
+      variants={containerVariants}
+    >
+      {/* Animated background pattern */}
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-[linear-gradient(45deg,#ffffff05_1px,transparent_1px),linear-gradient(-45deg,#ffffff05_1px,transparent_1px)] bg-[size:40px_40px]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black" />
+      </div>
 
-      <motion.div
-        initial="hidden"
-        animate={isInView ? "visible" : "hidden"}
-        variants={containerVariants}
-        className="container mx-auto px-4 relative z-10"
-      >
-        <motion.h2 
+      {/* Animated lines */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute w-full h-px bg-gradient-to-r from-transparent via-purple-500/30 to-transparent top-1/4 animate-move-right" />
+        <div className="absolute w-full h-px bg-gradient-to-r from-transparent via-blue-500/30 to-transparent top-1/2 animate-move-left" />
+        <div className="absolute w-full h-px bg-gradient-to-r from-transparent via-pink-500/30 to-transparent top-3/4 animate-move-right" />
+      </div>
+
+      <div className="relative z-10 container mx-auto px-4">
+        <motion.h2
           variants={itemVariants}
           className="text-4xl md:text-5xl lg:text-6xl font-bold text-center mb-16"
         >
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-400">
             Educational Journey
           </span>
         </motion.h2>
 
-        <div className="max-w-4xl mx-auto space-y-12">
-          {educationData.map((edu) => (
+        <div className="max-w-4xl mx-auto">
+          {educationData.map((edu, index) => (
             <motion.div
-              key={edu.title}
+              key={index}
               variants={itemVariants}
-              className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10
-                       hover:border-purple-500/30 transition-all"
+              className="mb-12 relative"
             >
-              <div className="flex items-center gap-4 mb-4">
-                <div className={`p-3 rounded-xl bg-gradient-to-r ${edu.color}`}>
-                  <edu.icon className="text-2xl text-white" />
+              <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-cyan-500 to-indigo-500 rounded-full" />
+              <div className="ml-8 bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10 hover:border-cyan-500/30 transition-all duration-300">
+                <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                  <div className="flex items-center gap-3 mb-2 md:mb-0">
+                    <div className={`p-2 rounded-lg bg-gradient-to-r ${edu.color}`}>
+                      <edu.icon className="text-xl text-white" />
+                    </div>
+                    <h3 className="text-xl font-semibold text-white">{edu.title}</h3>
+                  </div>
+                  <div className="flex items-center gap-2 text-white/70">
+                    <span>{edu.period}</span>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="text-xl font-bold text-white">{edu.title}</h3>
-                  <p className="text-gray-400">{edu.period}</p>
-                </div>
+                
+                {edu.description && (
+                  <p className="text-white/70 mb-4">{edu.description}</p>
+                )}
+                
+                {edu.courses && (
+                  <div className="grid md:grid-cols-2 gap-4 mt-6">
+                    {edu.courses.map((course) => (
+                      <motion.div
+                        key={course.quarter}
+                        variants={itemVariants}
+                        className="bg-white/5 rounded-xl p-4 border border-white/10"
+                      >
+                        <div className="flex items-center gap-3 mb-2">
+                          <course.icon className="text-xl text-purple-400" />
+                          <h4 className="font-medium text-white">{course.title}</h4>
+                        </div>
+                        <p className="text-sm text-gray-400 mb-2">{course.description}</p>
+                        <div className="flex justify-between items-center">
+                          <span className="text-xs text-gray-500">{course.quarter}</span>
+                          <span className={`text-xs px-2 py-1 rounded-full ${
+                            course.status === "Completed" 
+                              ? "bg-green-500/20 text-green-400"
+                              : "bg-blue-500/20 text-blue-400"
+                          }`}>
+                            {course.status}
+                          </span>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                )}
               </div>
-
-              {edu.courses && (
-                <div className="grid md:grid-cols-2 gap-4 mt-6">
-                  {edu.courses.map((course) => (
-                    <motion.div
-                      key={course.quarter}
-                      variants={itemVariants}
-                      className="bg-white/5 rounded-xl p-4 border border-white/10"
-                    >
-                      <div className="flex items-center gap-3 mb-2">
-                        <course.icon className="text-xl text-purple-400" />
-                        <h4 className="font-medium text-white">{course.title}</h4>
-                      </div>
-                      <p className="text-sm text-gray-400 mb-2">{course.description}</p>
-                      <div className="flex justify-between items-center">
-                        <span className="text-xs text-gray-500">{course.quarter}</span>
-                        <span className={`text-xs px-2 py-1 rounded-full ${
-                          course.status === "Completed" 
-                            ? "bg-green-500/20 text-green-400"
-                            : "bg-blue-500/20 text-blue-400"
-                        }`}>
-                          {course.status}
-                        </span>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              )}
             </motion.div>
           ))}
         </div>
-
-        {/* Online Courses Section */}
-        <motion.div
-          variants={itemVariants}
-          className="mt-16 text-center"
-        >
-          <h3 className="text-2xl font-bold text-white mb-8">Additional Online Courses</h3>
-          <div className="flex flex-wrap justify-center gap-4">
-            {[
-              "Web Development",
-              "Frontend Development",
-              "Backend Development",
-              "UI/UX Design",
-              "React.js",
-              "Next.js",
-              "TypeScript",
-              "Python Programming"
-            ].map((course) => (
-              <motion.span
-                key={course}
-                variants={itemVariants}
-                className="px-4 py-2 bg-white/5 rounded-full text-white/80
-                         border border-white/10 hover:border-purple-500/30 transition-all"
-              >
-                {course}
-              </motion.span>
-            ))}
-          </div>
-        </motion.div>
-      </motion.div>
-    </section>
+      </div>
+    </motion.section>
   );
 };
 
