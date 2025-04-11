@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, useAnimation, useInView } from 'framer-motion';
 import { FiMail, FiSend, FiUser, FiMessageSquare } from 'react-icons/fi';
 
@@ -8,6 +8,7 @@ const Contact = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.3 });
   const controls = useAnimation();
+  const [dimensions, setDimensions] = useState({ width: 1000, height: 1000 }); // Default values for SSR
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -15,6 +16,26 @@ const Contact = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+  useEffect(() => {
+    // Only run on client side
+    if (typeof window !== 'undefined') {
+      setDimensions({
+        width: window.innerWidth,
+        height: window.innerHeight
+      });
+
+      const handleResize = () => {
+        setDimensions({
+          width: window.innerWidth,
+          height: window.innerHeight
+        });
+      };
+
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
+    }
+  }, []);
 
   React.useEffect(() => {
     if (isInView) {
@@ -64,7 +85,7 @@ const Contact = () => {
       } else {
         setSubmitStatus('error');
       }
-    } catch{
+    } catch {
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
@@ -88,13 +109,24 @@ const Contact = () => {
       {/* Floating particles */}
       <div className="absolute inset-0 overflow-hidden">
         {[...Array(20)].map((_, i) => (
-          <div
+          <motion.div
             key={i}
             className="absolute w-1 h-1 bg-white/20 rounded-full"
-            style={{
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              animation: `float ${5 + Math.random() * 5}s linear infinite`
+            initial={{
+              x: Math.random() * dimensions.width,
+              y: Math.random() * dimensions.height,
+              opacity: 0
+            }}
+            animate={{
+              x: Math.random() * dimensions.width,
+              y: Math.random() * dimensions.height,
+              opacity: [0, 0.2, 0],
+              transition: {
+                duration: 10 + Math.random() * 20,
+                repeat: Infinity,
+                repeatType: "reverse",
+                ease: "linear"
+              }
             }}
           />
         ))}
