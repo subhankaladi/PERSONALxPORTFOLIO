@@ -1,7 +1,7 @@
 "use client"
 import React, { useRef } from 'react';
 import { motion, useAnimation, useInView } from 'framer-motion';
-import { SiHtml5, SiCss3, SiJavascript, SiTypescript, SiReact, SiNextdotjs, SiNodedotjs, SiSanity, SiPython, SiGit } from 'react-icons/si';
+import {  SiJavascript, SiTypescript, SiReact, SiNextdotjs, SiNodedotjs, SiSanity, SiPython } from 'react-icons/si';
 import { FaRobot } from 'react-icons/fa';
 
 const Skills = () => {
