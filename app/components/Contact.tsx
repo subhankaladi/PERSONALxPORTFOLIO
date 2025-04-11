@@ -1,4 +1,5 @@
 "use client"
+
 import React, { useRef, useState } from 'react';
 import { motion, useAnimation, useInView } from 'framer-motion';
 import { FiMail, FiSend, FiUser, FiMessageSquare } from 'react-icons/fi';

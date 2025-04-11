@@ -1,3 +1,5 @@
+"use client"
+
 import Contact from "./components/Contact";
 import Education from "./components/Education";
 import HeroSection from "./components/HeroSection";
