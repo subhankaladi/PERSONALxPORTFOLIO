@@ -21,14 +21,22 @@ const Project = () => {
   const isInView = useInView(ref, { once: true, amount: 0.2 });
   const controls = useAnimation();
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [windowSize, setWindowSize] = useState({ 
+    width: typeof window !== 'undefined' ? window.innerWidth : 1000,
+    height: typeof window !== 'undefined' ? window.innerHeight : 1000 
+  });
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    if (isInView) {
-      controls.start("visible");
-    }
-  }, [isInView, controls]);
+    setIsClient(true);
+    
+    const handleResize = () => {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight
+      });
+    };
 
-  useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({
         x: e.clientX,
@@ -36,11 +44,20 @@ const Project = () => {
       });
     };
 
+    window.addEventListener('resize', handleResize);
     window.addEventListener('mousemove', handleMouseMove);
+    
     return () => {
+      window.removeEventListener('resize', handleResize);
       window.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);
+
+  useEffect(() => {
+    if (isInView) {
+      controls.start("visible");
+    }
+  }, [isInView, controls]);
 
   const projects: Project[] = [
     {
@@ -131,127 +148,131 @@ const Project = () => {
       className="min-h-screen bg-black py-20 relative overflow-hidden"
     >
       {/* Interactive background */}
-      <div className="absolute inset-0">
-        {/* Base grid pattern */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:32px_32px]" />
-        
-        {/* Interactive light effect that follows mouse */}
-        <div 
-          className="absolute w-[500px] h-[500px] rounded-full bg-gradient-to-r from-purple-500/10 to-blue-500/10 blur-3xl pointer-events-none transition-opacity duration-300"
-          style={{
-            left: `${mousePosition.x - 250}px`,
-            top: `${mousePosition.y - 250}px`,
-            opacity: isInView ? 1 : 0
-          }}
-        />
-        
-        {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black" />
-      </div>
+      {isClient && (
+        <>
+          <div className="absolute inset-0">
+            {/* Base grid pattern */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:32px_32px]" />
+            
+            {/* Interactive light effect that follows mouse */}
+            <div 
+              className="absolute w-[500px] h-[500px] rounded-full bg-gradient-to-r from-purple-500/10 to-blue-500/10 blur-3xl pointer-events-none transition-opacity duration-300"
+              style={{
+                left: `${mousePosition.x - 250}px`,
+                top: `${mousePosition.y - 250}px`,
+                opacity: isInView ? 1 : 0
+              }}
+            />
+            
+            {/* Gradient overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black" />
+          </div>
 
-      {/* Animated gradient orbs */}
-      <div className="absolute inset-0 overflow-hidden">
-        <motion.div 
-          className="absolute w-96 h-96 rounded-full bg-gradient-to-r from-blue-500/20 to-purple-500/20 blur-3xl -top-48 -left-48"
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.5, 0.3]
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        />
-        <motion.div 
-          className="absolute w-96 h-96 rounded-full bg-gradient-to-r from-pink-500/20 to-orange-500/20 blur-3xl -bottom-48 -right-48"
-          animate={{
-            scale: [1, 1.3, 1],
-            opacity: [0.3, 0.6, 0.3]
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        />
-      </div>
+          {/* Animated gradient orbs */}
+          <div className="absolute inset-0 overflow-hidden">
+            <motion.div 
+              className="absolute w-96 h-96 rounded-full bg-gradient-to-r from-blue-500/20 to-purple-500/20 blur-3xl -top-48 -left-48"
+              animate={{
+                scale: [1, 1.2, 1],
+                opacity: [0.3, 0.5, 0.3]
+              }}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            />
+            <motion.div 
+              className="absolute w-96 h-96 rounded-full bg-gradient-to-r from-pink-500/20 to-orange-500/20 blur-3xl -bottom-48 -right-48"
+              animate={{
+                scale: [1, 1.3, 1],
+                opacity: [0.3, 0.6, 0.3]
+              }}
+              transition={{
+                duration: 10,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            />
+          </div>
 
-      {/* Interactive grid lines */}
-      <div className="absolute inset-0 overflow-hidden">
-        <motion.div 
-          className="absolute w-full h-px bg-gradient-to-r from-transparent via-purple-500/20 to-transparent top-1/3"
-          animate={{
-            x: ["-100%", "100%"],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-        />
-        <motion.div 
-          className="absolute w-full h-px bg-gradient-to-r from-transparent via-blue-500/20 to-transparent top-2/3"
-          animate={{
-            x: ["100%", "-100%"],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-        />
-      </div>
+          {/* Interactive grid lines */}
+          <div className="absolute inset-0 overflow-hidden">
+            <motion.div 
+              className="absolute w-full h-px bg-gradient-to-r from-transparent via-purple-500/20 to-transparent top-1/3"
+              animate={{
+                x: ["-100%", "100%"],
+              }}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                ease: "linear"
+              }}
+            />
+            <motion.div 
+              className="absolute w-full h-px bg-gradient-to-r from-transparent via-blue-500/20 to-transparent top-2/3"
+              animate={{
+                x: ["100%", "-100%"],
+              }}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                ease: "linear"
+              }}
+            />
+          </div>
 
-      {/* Interactive floating particles */}
-      <div className="absolute inset-0 overflow-hidden">
-        {[...Array(40)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 bg-purple-400/30 rounded-full"
-            initial={{
-              x: Math.random() * window.innerWidth,
-              y: Math.random() * window.innerHeight,
-              scale: 0.5 + Math.random() * 1.5
-            }}
-            animate={{
-              y: [null, Math.random() * -100],
-              x: [null, Math.random() * 100 - 50],
-              opacity: [0.3, 0.8, 0.3]
-            }}
-            transition={{
-              duration: 10 + Math.random() * 20,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          />
-        ))}
-      </div>
+          {/* Interactive floating particles */}
+          <div className="absolute inset-0 overflow-hidden">
+            {[...Array(40)].map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute w-1 h-1 bg-purple-400/30 rounded-full"
+                initial={{
+                  x: Math.random() * windowSize.width,
+                  y: Math.random() * windowSize.height,
+                  scale: 0.5 + Math.random() * 1.5
+                }}
+                animate={{
+                  y: [null, Math.random() * -100],
+                  x: [null, Math.random() * 100 - 50],
+                  opacity: [0.3, 0.8, 0.3]
+                }}
+                transition={{
+                  duration: 10 + Math.random() * 20,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              />
+            ))}
+          </div>
 
-      {/* Interactive connection lines */}
-      <div className="absolute inset-0 overflow-hidden">
-        {[...Array(15)].map((_, i) => (
-          <motion.div
-            key={`line-${i}`}
-            className="absolute h-[1px] bg-gradient-to-r from-transparent via-purple-500/10 to-transparent"
-            style={{
-              width: `${100 + Math.random() * 200}px`,
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              transform: `rotate(${Math.random() * 360}deg)`
-            }}
-            animate={{
-              opacity: [0.1, 0.3, 0.1],
-              scale: [0.8, 1.2, 0.8]
-            }}
-            transition={{
-              duration: 5 + Math.random() * 10,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          />
-        ))}
-      </div>
+          {/* Interactive connection lines */}
+          <div className="absolute inset-0 overflow-hidden">
+            {[...Array(15)].map((_, i) => (
+              <motion.div
+                key={`line-${i}`}
+                className="absolute h-[1px] bg-gradient-to-r from-transparent via-purple-500/10 to-transparent"
+                style={{
+                  width: `${100 + Math.random() * 200}px`,
+                  left: `${Math.random() * 100}%`,
+                  top: `${Math.random() * 100}%`,
+                  transform: `rotate(${Math.random() * 360}deg)`
+                }}
+                animate={{
+                  opacity: [0.1, 0.3, 0.1],
+                  scale: [0.8, 1.2, 0.8]
+                }}
+                transition={{
+                  duration: 5 + Math.random() * 10,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              />
+            ))}
+          </div>
+        </>
+      )}
 
       <motion.div
         initial="hidden"
