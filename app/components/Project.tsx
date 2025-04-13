@@ -147,6 +147,8 @@ const Project = () => {
       ref={ref} 
       className="min-h-screen bg-black py-20 relative overflow-hidden"
     >
+
+
       {/* Interactive background */}
       {isClient && (
         <>
@@ -155,6 +157,8 @@ const Project = () => {
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:32px_32px]" />
             
             {/* Interactive light effect that follows mouse */}
+
+            
             <div 
               className="absolute w-[500px] h-[500px] rounded-full bg-gradient-to-r from-purple-500/10 to-blue-500/10 blur-3xl pointer-events-none transition-opacity duration-300"
               style={{
