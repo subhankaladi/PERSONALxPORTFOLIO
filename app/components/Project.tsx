@@ -84,7 +84,7 @@ const Project = () => {
       title: "PyQuiz",
       description: "Interactive Python quiz application with real-time scoring and progress tracking.",
       image: "/pyquiz.png",
-      technologies: ["Python", "Next.js", "TypeScript"],
+      technologies: ["Python", "Next.js", "TypeScript", "Sanity"],
       githubLink: "https://github.com/subhankaladi",
       liveLink: "https://pyquizmaster.vercel.app/",
       type: "project",
