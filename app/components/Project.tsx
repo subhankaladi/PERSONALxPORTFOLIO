@@ -64,7 +64,7 @@ const Project = () => {
       title: "BlogSite",
       description: "A modern blog platform built with Next.js and TypeScript, featuring a clean UI and smooth animations.",
       image: "/blogsite.png",
-      technologies: ["Next.js", "TypeScript", "Tailwind CSS"],
+      technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Sanity"],
       githubLink: "https://github.com/subhankaladi/blogsite-with-sanity/tree/main/next-sanity-blog",
       liveLink: "https://blogsite-with-sanity.vercel.app/",
       type: "project",
@@ -158,7 +158,7 @@ const Project = () => {
             
             {/* Interactive light effect that follows mouse */}
 
-            
+
             <div 
               className="absolute w-[500px] h-[500px] rounded-full bg-gradient-to-r from-purple-500/10 to-blue-500/10 blur-3xl pointer-events-none transition-opacity duration-300"
               style={{
