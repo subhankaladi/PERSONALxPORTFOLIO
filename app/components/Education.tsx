@@ -77,7 +77,7 @@ const Education = () => {
         },
         {
           quarter: "Quarter 2",
-          title: "Next.js Development",
+          title: "Next.js ( Frontend Development )",
           icon: SiNextdotjs,
           status: "Completed",
           description: "Comprehensive study of Next.js framework and modern web development."
