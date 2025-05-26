@@ -88,7 +88,15 @@ const Education = () => {
           icon: FaPython,
           status: "Completed",
           description: "Currently focusing on Python and Agentic AI development."
-        }
+        },
+        {
+         quarter: "Quarter 4",
+         title: "Agentic AI with OpenAI Agents SDK",
+         icon: FaRobot, // Make sure to import this icon from react-icons/fa
+         status: "Ongoing",
+         description: "Currently working on Agentic AI development using the OpenAI Agents SDK."
+      }
+
       ],
       color: "from-blue-400 to-blue-600"
     },
