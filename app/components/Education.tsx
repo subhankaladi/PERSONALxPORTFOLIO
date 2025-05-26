@@ -86,7 +86,7 @@ const Education = () => {
           quarter: "Quarter 3",
           title: "Advanced Python",
           icon: FaPython,
-          status: "Ongoing",
+          status: "Completed",
           description: "Currently focusing on Python and Agentic AI development."
         }
       ],
