@@ -163,7 +163,7 @@ export default function LinksPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 text-white">
+    <div className="min-h-screen bg-black text-white">
       <Head>
         <title>Subhan Kaladi | Links</title>
         <meta name="description" content="Subhan Kaladi's portfolio links" />
