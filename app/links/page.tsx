@@ -37,20 +37,20 @@ export default function LinksPage() {
 
   const noteItems: NoteItem[] = [
     { id: 1, title: 'AgentRunner Class Comprehensive Notes', description: 'Complete guide to AgentRunner implementation', url: '/AgentRunner.pdf' },
-    { id: 2, title: 'NextJS Optimization Techniques', description: 'Advanced techniques for NextJS performance', url: '#' },
-    { id: 3, title: 'TypeScript Best Practices', description: 'Professional TypeScript development patterns', url: '#' },
-    { id: 4, title: 'UI/Animation Principles', description: 'Creating engaging user interfaces', url: '#' },
+    { id: 2, title: 'Code Base MSQS', description: 'OpenAI Agents SDK Code base mcqs', url: '/codebase.pdf' },
+    { id: 3, title: 'Concept Base MCQS', description: 'OpenAI Agents SDK Concept Base MCQS', url: '/conceptbase.pdf' },
+    // { id: 4, title: 'UI/Animation Principles', description: 'Creating engaging user interfaces', url: '#' },
   ];
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white mt-20">
+    <div className="min-h-screen bg-gray-900 text-white ">
       <Head>
         <title>Subhan Kaladi | Links</title>
         <meta name="description" content="Subhan Kaladi's portfolio links" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="container mx-auto px-4 py-12">
+      <main className="container mx-auto px-4 py-12 mt-20">
         {/* Header Section */}
         <div className={`text-center mb-16 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-red-700 mb-4">
