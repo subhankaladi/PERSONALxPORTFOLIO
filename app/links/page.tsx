@@ -26,24 +26,24 @@ export default function LinksPage() {
 
   const linkItems: LinkItem[] = [
     { id: 1, title: 'GitHub', url: '#', type: 'personal' },
-    { id: 2, title: 'LinkedIn', url: '#', type: 'personal' },
+    { id: 2, title: 'LinkedIn', url: 'https://www.linkedin.com/in/subhankaladi/', type: 'personal' },
     { id: 3, title: 'Twitter', url: '#', type: 'personal' },
     { id: 4, title: 'Instagram', url: '#', type: 'personal' },
     { id: 5, title: 'Blog', url: '#', type: 'personal' },
-    { id: 6, title: 'Codentic Services', url: '#', type: 'company' },
-    { id: 7, title: 'Codentic Projects', url: '#', type: 'company' },
-    { id: 8, title: 'Codentic Contact', url: '#', type: 'company' },
+    { id: 6, title: 'Codentic LinkedIN', url: 'https://www.linkedin.com/company/codentic/?viewAsMember=true', type: 'company' },
+    { id: 7, title: 'Codentic Instagram', url: 'https://www.instagram.com/codentic_official/?hl=ne', type: 'company' },
+    // { id: 8, title: 'Codentic Contact', url: '#', type: 'company' },
   ];
 
   const noteItems: NoteItem[] = [
-    { id: 1, title: 'AgentRunner Class Comprehensive Notes', description: 'Complete guide to AgentRunner implementation', url: '#' },
+    { id: 1, title: 'AgentRunner Class Comprehensive Notes', description: 'Complete guide to AgentRunner implementation', url: '/AgentRunner.pdf' },
     { id: 2, title: 'NextJS Optimization Techniques', description: 'Advanced techniques for NextJS performance', url: '#' },
     { id: 3, title: 'TypeScript Best Practices', description: 'Professional TypeScript development patterns', url: '#' },
     { id: 4, title: 'UI/Animation Principles', description: 'Creating engaging user interfaces', url: '#' },
   ];
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
+    <div className="min-h-screen bg-gray-900 text-white mt-20">
       <Head>
         <title>Subhan Kaladi | Links</title>
         <meta name="description" content="Subhan Kaladi's portfolio links" />
