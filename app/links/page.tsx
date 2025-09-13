@@ -62,7 +62,7 @@
 //         {/* Links Section */}
 //         <section className="mb-20">
 //           <h2 className="text-2xl font-semibold mb-8 text-center text-red-500">My Links</h2>
-          
+
 //           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
 //             {linkItems.map((item, index) => (
 //               <div
@@ -84,7 +84,7 @@
 //         {/* Notes Section */}
 //         <section>
 //           <h2 className="text-2xl font-semibold mb-8 text-center text-red-500">Notes & Resources</h2>
-          
+
 //           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
 //             {noteItems.map((note, index) => (
 //               <div
@@ -122,6 +122,7 @@
 
 import { useState, useEffect } from 'react';
 import Head from 'next/head';
+import Image from 'next/image';
 
 interface LinkItem {
   id: number;
@@ -175,12 +176,24 @@ export default function LinksPage() {
         {/* Header Section */}
         <div className={`text-center mb-16 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <div className="mb-6">
-            <div className="w-24 h-24 mx-auto rounded-full bg-gradient-to-r from-purple-500 to-blue-600 p-1">
+            {/* <div className="w-24 h-24 mx-auto rounded-full bg-gradient-to-r from-purple-500 to-blue-600 p-1">
               <div className="w-full h-full rounded-full bg-gray-800 flex items-center justify-center">
                 <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-600">SK</span>
               </div>
+            </div> */}
+            <div className="w-24 h-24 mx-auto rounded-full bg-gradient-to-r from-purple-500 to-blue-600 p-1">
+              <div className="w-full h-full rounded-full bg-gray-800 overflow-hidden">
+                <Image
+                  src="/subhan.png"   // yahan apni image ka path dalna
+                  alt="Profile"
+                  className="w-full h-full object-cover rounded-full"
+                  height={1000}
+                  width={1000}
+                />
+              </div>
             </div>
           </div>
+
           <h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-600 mb-4">
             Subhan Kaladi
           </h1>
@@ -192,7 +205,7 @@ export default function LinksPage() {
           <h2 className="text-2xl font-semibold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-600">
             My Links
           </h2>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
             {linkItems.map((item, index) => (
               <div
@@ -202,8 +215,8 @@ export default function LinksPage() {
                 onMouseEnter={() => setHoveredItem(item.id)}
                 onMouseLeave={() => setHoveredItem(null)}
               >
-                <a 
-                  href={item.url} 
+                <a
+                  href={item.url}
                   className="flex items-center justify-between"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -226,7 +239,7 @@ export default function LinksPage() {
           <h2 className="text-2xl font-semibold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-600">
             Notes & Resources
           </h2>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
             {noteItems.map((note, index) => (
               <div
@@ -243,8 +256,8 @@ export default function LinksPage() {
                   <span className="bg-purple-900/20 text-purple-300 text-xs px-2 py-1 rounded">PDF</span>
                 </div>
                 <p className="text-gray-400 mb-4">{note.description}</p>
-                <a 
-                  href={note.url} 
+                <a
+                  href={note.url}
                   className="inline-flex items-center bg-gradient-to-r from-purple-500 to-blue-600 text-white px-4 py-2 rounded-lg hover:from-purple-600 hover:to-blue-700 transition-all duration-300"
                   download
                 >
