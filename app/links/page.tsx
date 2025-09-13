@@ -150,10 +150,11 @@ export default function LinksPage() {
     { id: 1, title: 'GitHub', url: 'https://github.com/subhankaladi', type: 'personal', icon: '👨‍💻' },
     { id: 2, title: 'LinkedIn', url: 'https://www.linkedin.com/in/subhankaladi/', type: 'personal', icon: '💼' },
     { id: 3, title: 'Whatsapp Channel', url: 'https://whatsapp.com/channel/0029Vavb6Jy6buMQjQ0l8A45', type: 'personal', icon: '🐦' },
-    // { id: 4, title: 'Instagram', url: '#', type: 'personal', icon: '📸' },
-    // { id: 5, title: 'Blog', url: '#', type: 'personal', icon: '✍️' },
+    { id: 4, title: 'Instagram', url: 'https://www.instagram.com/subhan_kaladi/', type: 'personal', icon: '📸' },
+    { id: 5, title: 'X(Twitter)', url: 'https://x.com/subhankaladi15', type: 'personal', icon: '⚫' },
     { id: 6, title: 'Codentic LinkedIN', url: 'https://www.linkedin.com/company/codentic/?viewAsMember=true', type: 'company', icon: '🏢' },
     { id: 7, title: 'Codentic Instagram', url: 'https://www.instagram.com/codentic_official/?hl=ne', type: 'company', icon: '📱' },
+    { id: 8, title: 'Codentic Whatsapp Channel', url: 'https://whatsapp.com/channel/0029VbBJtOG6BIEd4pcpA82X', type: 'company', icon: '🟢' },
   ];
 
   const noteItems: NoteItem[] = [
